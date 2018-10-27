@@ -1,8 +1,11 @@
 package com.codethecode.courseregistersystem.controller;
 
+import com.codethecode.courseregistersystem.dto.CourseDto;
 import com.codethecode.courseregistersystem.dto.StudentDto;
 import com.codethecode.courseregistersystem.dto.TeacherDto;
+import com.codethecode.courseregistersystem.entity.Course;
 import com.codethecode.courseregistersystem.entity.Teacher;
+import com.codethecode.courseregistersystem.repository.CourseRepository;
 import com.codethecode.courseregistersystem.repository.StudentRepository;
 import com.codethecode.courseregistersystem.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class AdminController {
 
     @Autowired
     StudentRepository studentRepository;
+
+    @Autowired
+    CourseRepository courseRepository;
 
     @PostMapping(value = "/teacher/add")
     public ResponseEntity addTeacher(@RequestParam("teacherDto") TeacherDto teacherDto) {
@@ -56,7 +62,6 @@ public class AdminController {
         newStudent.setName(studentDto.getName());
         newStudent.setSurname(studentDto.getSurname());
         newStudent.setGender(studentDto.getGender());
-        newStudent.setDays(studentDto.getDays());
         newStudent.setCourses(studentDto.getCourses());
         newStudent.setGrade(studentDto.getGrade());
 
@@ -74,4 +79,25 @@ public class AdminController {
                                 + " deleted", HttpStatus.ACCEPTED);
     }
 
+    @PostMapping(value = "/course/add")
+    public ResponseEntity addCourse(@RequestParam("courseDto") CourseDto courseDto) {
+        Course newCourse = new Course();
+        newCourse.setName(courseDto.getName());
+        newCourse.setBranch(courseDto.getBranch());
+        newCourse.setCost(courseDto.getCost());
+        newCourse.setDay(courseDto.getDay());
+//        newCourse.setStudentId();
+//        newCourse.setTeacherId();
+
+        courseRepository.save(newCourse);
+
+        return new ResponseEntity<String>("New course added", HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(value = "/course/delete/{id}")
+    public ResponseEntity deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+
+        return new ResponseEntity<String>("Course deleted", HttpStatus.ACCEPTED);
+    }
 }
