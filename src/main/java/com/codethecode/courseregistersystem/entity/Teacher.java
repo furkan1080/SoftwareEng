@@ -39,7 +39,4 @@ public class Teacher{
 
     @Column(name="balance")
     private Long balance;
-
 }
-
-

@@ -26,6 +26,7 @@ public class Course {
     @Column(name = "day")
     private String day;
 
+
     //@OneToOne vb relation olacak
     @Column(name = "teacherId")
     private String teacherId;
