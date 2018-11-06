@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface RequestRepository extends CrudRepository<Request, Long> {
     Optional<Request> findById(Long id);
+    Optional<Request> findByTeacherId(Long teacherId);
 }
