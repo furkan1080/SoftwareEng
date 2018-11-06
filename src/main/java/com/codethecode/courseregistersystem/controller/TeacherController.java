@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Column;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -68,9 +69,36 @@ public class TeacherController {
         request.get().setRequestStatus(RequestStatus.REVIEWED_BY_TEACHER);
         requestRepository.save(request.get())
         ;
-        return new ResponseEntity<>("Request made by student"
+        return new ResponseEntity<>("RequestId "+ request.get().getId() +": Request made by student"
                 + requestingStudent.get().getName() + " " + requestingStudent.get().getSurname()
                 + " for course " + requestedCourse.get().getName()
                 + " for teacher " + requestedTeacher.get().getName(), HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(value = "/responseRequest/id={requestId}&response={response}")
+    public ResponseEntity responseRequest(@PathVariable Long requestId, Long response) {
+        Optional<Request> request = requestRepository.findById(requestId);
+        Optional<Teacher> requestedTeacher = teacherRepository.findById(request.get().getTeacherId());
+        Optional<Course> requestedCourse = courseRepository.findById(request.get().getCourseId());
+
+        if(response.equals(1)){ // Say, it's ACCEPT of the request
+
+            request.get().setRequestStatus(RequestStatus.ACCEPTED);
+            ArrayList<String> busyDays = requestedTeacher.get().getBusyDays();
+            busyDays.add(requestedCourse.get().getDay());
+
+            int teachersBalance = Math.toIntExact(requestedTeacher.get().getBalance());
+            teachersBalance += requestedCourse.get().getCost();
+            requestedTeacher.get().setBalance(teachersBalance);
+
+            String responseMessage = "Request is accepted";
+        }
+        else if(response.equals(0)){ // DENIAL of the request
+            request.get().setRequestStatus(RequestStatus.DENIED);
+            String responseMessage = "Request is denied";
+        }
+
+        requestRepository.deleteById(requestId);
+        return new ResponseEntity<>("Request is denied.", HttpStatus.ACCEPTED);
     }
 }

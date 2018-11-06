@@ -41,5 +41,5 @@ public class Teacher{
     private Long cost;
 
     @Column(name="balance")
-    private Long balance;
+    private Integer balance;
 }

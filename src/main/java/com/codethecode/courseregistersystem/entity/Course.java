@@ -36,7 +36,7 @@ public class Course {
     private String studentId;
 
     @Column(name = "cost")
-    private Long cost;
+    private Integer cost;
 
 
 }
