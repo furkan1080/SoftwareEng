@@ -1,5 +1,6 @@
 package com.codethecode.courseregistersystem.controller;
 
+import com.codethecode.courseregistersystem.RequestStatus;
 import com.codethecode.courseregistersystem.dto.RequestDto;
 import com.codethecode.courseregistersystem.dto.ScheduleDto;
 import com.codethecode.courseregistersystem.entity.Course;
@@ -63,7 +64,10 @@ public class TeacherController {
         Optional<Course> requestedCourse = courseRepository.findById(requestDto.getCourseId());
         Optional<Student> requestingStudent = studentRepository.findById(requestDto.getStudentId());
         Optional<Teacher> requestedTeacher = teacherRepository.findById(requestDto.getTeacherId());
-        
+
+        request.get().setRequestStatus(RequestStatus.REVIEWED_BY_TEACHER);
+        requestRepository.save(request.get())
+        ;
         return new ResponseEntity<>("Request made by student"
                 + requestingStudent.get().getName() + " " + requestingStudent.get().getSurname()
                 + " for course " + requestedCourse.get().getName()

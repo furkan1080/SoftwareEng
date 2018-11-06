@@ -1,5 +1,6 @@
 package com.codethecode.courseregistersystem.controller;
 
+import com.codethecode.courseregistersystem.RequestStatus;
 import com.codethecode.courseregistersystem.dto.CourseDto;
 import com.codethecode.courseregistersystem.dto.RequestDto;
 import com.codethecode.courseregistersystem.dto.ScheduleDto;
@@ -97,6 +98,7 @@ public class StudentController {
         request.setStudentId(requestDto.getStudentId());
         request.setCourseId(requestDto.getCourseId());
         request.setTeacherId(requestDto.getTeacherId());
+        request.setRequestStatus(RequestStatus.WAITING_FOR_RESPONSE);
         requestRepository.save(request);
         return new ResponseEntity<>("Request made successfully.", HttpStatus.ACCEPTED);
     }

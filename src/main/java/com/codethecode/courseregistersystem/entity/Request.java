@@ -1,5 +1,6 @@
 package com.codethecode.courseregistersystem.entity;
 
+import com.codethecode.courseregistersystem.RequestStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class Request {
     @JoinColumn(name = "teacher_id")
     private Long teacherId;
 
+    private RequestStatus requestStatus;
 
 }
 
