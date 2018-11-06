@@ -12,6 +12,7 @@ public class StudentDto {
     private String name;
     private String surname;
     private String gender;
+    private Long debt;
     private int days;
     private String courses;
     private int grade;

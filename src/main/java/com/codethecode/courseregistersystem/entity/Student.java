@@ -31,6 +31,9 @@ public class Student {
     @Column(name="busy_days")
     private ArrayList<String> busyDays;
 
+    @Column(name="debt")
+    private Long debt;
+
     @Column(name="courses")
     private String courses;
 

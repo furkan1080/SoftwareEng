@@ -34,4 +34,11 @@ public class TeacherController {
 
         return new ResponseEntity<>(teacherSchedule, HttpStatus.ACCEPTED);
     }
+
+    @GetMapping(value = "/getBalance/{id}")
+    public ResponseEntity getBalance(@PathVariable Long id) {
+        Optional<Teacher> teacher = teacherRepository.findById(id);
+        return new ResponseEntity<>("Balance for teacher " + teacher.get().getName()
+                                        + "is " + teacher.get().getBalance() , HttpStatus.ACCEPTED);
+    }
 }

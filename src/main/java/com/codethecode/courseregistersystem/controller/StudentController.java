@@ -78,4 +78,11 @@ public class StudentController {
         return new ResponseEntity<>(studentSchedule, HttpStatus.ACCEPTED);
     }
 
+    @GetMapping(value = "/checkPayments/{id}")
+    public ResponseEntity checkPayments(@PathVariable Long id) {
+        Optional<Student> student = studentRepository.findById(id);
+        return new ResponseEntity<>("Balance for student " + student.get().getName()
+                + "is " + student.get().getDebt(), HttpStatus.ACCEPTED);
+    }
+
 }

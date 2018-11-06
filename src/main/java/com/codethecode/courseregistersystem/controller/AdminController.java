@@ -64,6 +64,7 @@ public class AdminController {
         newStudent.setGender(studentDto.getGender());
         newStudent.setCourses(studentDto.getCourses());
         newStudent.setGrade(studentDto.getGrade());
+        newStudent.setDebt(studentDto.getDebt());
 
         studentRepository.save(newStudent);
 
