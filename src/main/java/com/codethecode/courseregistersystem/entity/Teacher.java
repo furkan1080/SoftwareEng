@@ -22,6 +22,9 @@ public class Teacher{
     @Column(name="name")
     private String name;
 
+    @Column(name="courses") // courses teacher teaches
+    private ArrayList<String> courses;
+
     @Column(name="surname")
     private String surname;
 

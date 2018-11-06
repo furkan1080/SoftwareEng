@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 
 @Data
 public class StudentDto {
@@ -14,6 +15,6 @@ public class StudentDto {
     private String gender;
     private Long debt;
     private int days;
-    private String courses;
+    private ArrayList<String> courses;
     private int grade;
 }

@@ -35,8 +35,8 @@ public class Student {
     private Long debt;
 
     @Column(name="courses")
-    private String courses;
+    private ArrayList<String> courses;
 
-    @Column(name="grade")//notları değil, kaçıncı sınıf olduğu.
-    private int grade;  //hoca öğrencinin istediği dersin hangi sınıf dersi olduğu bu değerden anlayacak
+    @Column(name="grade") // which year
+    private int grade;
 }

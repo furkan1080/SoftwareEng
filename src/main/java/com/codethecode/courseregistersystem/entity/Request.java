@@ -10,33 +10,25 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="course")
-public class Course {
+@Table(name="request")
+public class Request {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id")
+    private Long studentId;
 
-    @Column(name = "branch")
-    private String branch;
-
-    @Column(name = "day")
-    private String day;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id")
+    private Long courseId;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "teacher_id")
-    private String teacherId;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id")
-    private String studentId;
-
-    @Column(name = "cost")
-    private Long cost;
+    private Long teacherId;
 
 
 }

@@ -6,12 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
 
 @Data
 public class TeacherDto {
     private String name;
     private String surname;
     private String gender;
+    private ArrayList<String> courses;
     private String branch;
     private Long cost;
     private Long balance;

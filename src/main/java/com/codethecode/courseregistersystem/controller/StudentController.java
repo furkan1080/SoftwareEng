@@ -1,12 +1,15 @@
 package com.codethecode.courseregistersystem.controller;
 
 import com.codethecode.courseregistersystem.dto.CourseDto;
+import com.codethecode.courseregistersystem.dto.RequestDto;
 import com.codethecode.courseregistersystem.dto.ScheduleDto;
 import com.codethecode.courseregistersystem.dto.TeacherDto;
 import com.codethecode.courseregistersystem.entity.Course;
+import com.codethecode.courseregistersystem.entity.Request;
 import com.codethecode.courseregistersystem.entity.Student;
 import com.codethecode.courseregistersystem.entity.Teacher;
 import com.codethecode.courseregistersystem.repository.CourseRepository;
+import com.codethecode.courseregistersystem.repository.RequestRepository;
 import com.codethecode.courseregistersystem.repository.StudentRepository;
 import com.codethecode.courseregistersystem.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,9 @@ public class StudentController {
 
     @Autowired
     CourseRepository courseRepository;
+
+    @Autowired
+    RequestRepository requestRepository;
 
     @GetMapping(value = "/getTeacherList")
     public ResponseEntity getTeacherList() {
@@ -83,6 +89,16 @@ public class StudentController {
         Optional<Student> student = studentRepository.findById(id);
         return new ResponseEntity<>("Balance for student " + student.get().getName()
                 + "is " + student.get().getDebt(), HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(value = "/makeRequest")
+    public ResponseEntity makeRequest(@RequestParam("courseDto") RequestDto requestDto) {
+        Request request = new Request();
+        request.setStudentId(requestDto.getStudentId());
+        request.setCourseId(requestDto.getCourseId());
+        request.setTeacherId(requestDto.getTeacherId());
+        requestRepository.save(request);
+        return new ResponseEntity<>("Request made successfully.", HttpStatus.ACCEPTED);
     }
 
 }

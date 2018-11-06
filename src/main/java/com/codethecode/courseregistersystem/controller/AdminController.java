@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.codethecode.courseregistersystem.entity.Student;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
@@ -62,13 +63,14 @@ public class AdminController {
         newStudent.setName(studentDto.getName());
         newStudent.setSurname(studentDto.getSurname());
         newStudent.setGender(studentDto.getGender());
+        newStudent.getCourses().addAll(studentDto.getCourses());
         newStudent.setCourses(studentDto.getCourses());
         newStudent.setGrade(studentDto.getGrade());
         newStudent.setDebt(studentDto.getDebt());
 
         studentRepository.save(newStudent);
 
-        return new ResponseEntity<String>("New Student added", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("New Student added", HttpStatus.ACCEPTED);
     }
 
     @PostMapping(value = "/student/delete/{id}")
