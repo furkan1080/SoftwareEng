@@ -62,9 +62,9 @@ public class TeacherController {
         // might be written as list of requests, instead of one request
         Optional<Request> request = requestRepository.findByTeacherId(id);
         RequestDto requestDto = new RequestDto();
-        Optional<Course> requestedCourse = courseRepository.findById(requestDto.getCourseId());
-        Optional<Student> requestingStudent = studentRepository.findById(requestDto.getStudentId());
-        Optional<Teacher> requestedTeacher = teacherRepository.findById(requestDto.getTeacherId());
+        Optional<Course> requestedCourse = courseRepository.findById(requestDto.getCourse().getId());
+        Optional<Student> requestingStudent = studentRepository.findById(requestDto.getStudent().getId());
+        Optional<Teacher> requestedTeacher = teacherRepository.findById(requestDto.getTeacher().getId());
 
         request.get().setRequestStatus(RequestStatus.REVIEWED_BY_TEACHER);
         requestRepository.save(request.get())
@@ -78,8 +78,8 @@ public class TeacherController {
     @PostMapping(value = "/responseRequest/id={requestId}&response={response}")
     public ResponseEntity responseRequest(@PathVariable Long requestId, Long response) {
         Optional<Request> request = requestRepository.findById(requestId);
-        Optional<Teacher> requestedTeacher = teacherRepository.findById(request.get().getTeacherId());
-        Optional<Course> requestedCourse = courseRepository.findById(request.get().getCourseId());
+        Optional<Teacher> requestedTeacher = teacherRepository.findById(request.get().getTeacher().getId());
+        Optional<Course> requestedCourse = courseRepository.findById(request.get().getCourse().getId());
 
         if(response.equals(1)){ // Say, it's ACCEPT of the request
 

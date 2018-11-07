@@ -1,6 +1,9 @@
 package com.codethecode.courseregistersystem.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,12 +18,20 @@ import java.util.ArrayList;
 @Table(name="teacher")
 public class Teacher{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="name")
     private String name;
+
+    @Email
+    @Column(name="email", unique = true)
+    private String email;
+
+    @NotNull
+    @Size(max = 128)
+    @Column(name="password")
+    private String password;
 
     @Column(name="courses") // courses teacher teaches
     private ArrayList<String> courses;
@@ -38,8 +49,11 @@ public class Teacher{
     private String branch;
 
     @Column(name="hourly_cost")
-    private Long cost;
+    private Integer cost;
 
     @Column(name="balance")
     private Integer balance;
+
+    @OneToOne(mappedBy = "student")
+    private Request request;
 }

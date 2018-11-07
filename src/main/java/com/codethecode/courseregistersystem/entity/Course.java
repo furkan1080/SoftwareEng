@@ -14,8 +14,7 @@ import javax.persistence.*;
 public class Course {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -27,17 +26,10 @@ public class Course {
     @Column(name = "day")
     private String day;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "teacher_id")
-    private String teacherId;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id")
-    private String studentId;
-
     @Column(name = "cost")
     private Integer cost;
 
-
+    @OneToOne(mappedBy = "course")
+    private Request request;
 }
 

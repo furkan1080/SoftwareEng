@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 
 @Entity
@@ -15,9 +18,18 @@ import java.util.ArrayList;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Email
+    @Column(name="email", unique = true)
+    private String email;
+
+    @NotNull
+    @Size(max = 128)
+    @Column(name="password")
+    private String password;
+
 
     @Column(name="name")
     private String name;
@@ -39,4 +51,7 @@ public class Student {
 
     @Column(name="grade") // which year
     private int grade;
+
+    @OneToOne(mappedBy = "student")
+    private Request request;
 }

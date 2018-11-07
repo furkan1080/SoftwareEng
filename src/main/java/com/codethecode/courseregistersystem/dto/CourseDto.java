@@ -9,5 +9,5 @@ public class CourseDto {
     private String day;
     private String teacherId;
     private String studentId;
-    private Long cost;
+    private Integer cost;
 }

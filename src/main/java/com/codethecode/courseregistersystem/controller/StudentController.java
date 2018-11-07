@@ -95,9 +95,9 @@ public class StudentController {
     @PostMapping(value = "/makeRequest")
     public ResponseEntity makeRequest(@RequestParam("courseDto") RequestDto requestDto) {
         Request request = new Request();
-        request.setStudentId(requestDto.getStudentId());
-        request.setCourseId(requestDto.getCourseId());
-        request.setTeacherId(requestDto.getTeacherId());
+        request.setStudent(requestDto.getStudent());
+        request.setCourse(requestDto.getCourse());
+        request.setTeacher(requestDto.getTeacher());
         request.setRequestStatus(RequestStatus.WAITING_FOR_RESPONSE);
         requestRepository.save(request);
         return new ResponseEntity<>("Request made successfully.", HttpStatus.ACCEPTED);

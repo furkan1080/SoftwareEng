@@ -15,6 +15,6 @@ public class TeacherDto {
     private String gender;
     private ArrayList<String> courses;
     private String branch;
-    private Long cost;
-    private Long balance;
+    private Integer cost;
+    private Integer balance;
 }
