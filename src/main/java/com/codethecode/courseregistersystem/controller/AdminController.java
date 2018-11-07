@@ -32,7 +32,7 @@ public class AdminController {
     CourseRepository courseRepository;
 
     @PostMapping(value = "/teacher/add")
-    public ResponseEntity addTeacher(@RequestParam("teacherDto") TeacherDto teacherDto) {
+    public ResponseEntity addTeacher(@RequestBody TeacherDto teacherDto) {
         Teacher newTeacher = new Teacher();
         newTeacher.setName(teacherDto.getName());
         newTeacher.setSurname(teacherDto.getSurname());
@@ -58,7 +58,7 @@ public class AdminController {
 
 
     @PostMapping(value = "/student/add")
-    public ResponseEntity addStudent(@RequestParam("studentDto") StudentDto studentDto){
+    public ResponseEntity addStudent(@RequestBody StudentDto studentDto){
         Student newStudent = new Student();
         newStudent.setName(studentDto.getName());
         newStudent.setSurname(studentDto.getSurname());
@@ -83,7 +83,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/course/add")
-    public ResponseEntity addCourse(@RequestParam("courseDto") CourseDto courseDto) {
+    public ResponseEntity addCourse(@RequestBody CourseDto courseDto) {
         Course newCourse = new Course();
         newCourse.setName(courseDto.getName());
         newCourse.setBranch(courseDto.getBranch());
