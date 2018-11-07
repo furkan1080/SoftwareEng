@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.time.LocalDate;
 
 @EnableSwagger2
-@EnableWebMvc
+//@EnableWebMvc
 @ComponentScan(basePackages = {"com.codethecode.courseregistersystem"})
 @Configuration
 public class SwaggerConfig {
@@ -37,4 +37,5 @@ public class SwaggerConfig {
                 .directModelSubstitute(LocalDate.class, String.class)
                 .genericModelSubstitutes(ResponseEntity.class);
     }
+
 }
