@@ -93,7 +93,7 @@ public class StudentController {
     }
 
     @PostMapping(value = "/makeRequest")
-    public ResponseEntity makeRequest(@RequestParam("courseDto") RequestDto requestDto) {
+    public ResponseEntity makeRequest(@RequestParam RequestDto requestDto) {
         Request request = new Request();
         request.setStudent(requestDto.getStudent());
         request.setCourse(requestDto.getCourse());
