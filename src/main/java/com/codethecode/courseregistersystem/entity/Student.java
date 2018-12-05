@@ -47,7 +47,7 @@ public class Student {
     private Long debt;
 
     @Column(name="courses")
-    private ArrayList<String> courses;
+    private ArrayList<Course> courses;
 
     @Column(name="grade") // which year
     private int grade;

@@ -1,6 +1,7 @@
 package com.codethecode.courseregistersystem.controller;
 
 import com.codethecode.courseregistersystem.dto.CourseDto;
+import com.codethecode.courseregistersystem.dto.RequestDto;
 import com.codethecode.courseregistersystem.dto.StudentDto;
 import com.codethecode.courseregistersystem.dto.TeacherDto;
 import com.codethecode.courseregistersystem.entity.Course;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value="/admin")
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     @Autowired
@@ -33,7 +34,7 @@ public class AdminController {
     CourseRepository courseRepository;
 
     @GetMapping(value = "/checkAccess")
-    public ResponseEntity checkAccess(){
+    public ResponseEntity checkAccess() {
         System.out.println("checkaccess is invoked");
         return new ResponseEntity<>("Access is successful.", HttpStatus.OK);
     }
@@ -65,12 +66,11 @@ public class AdminController {
 
 
     @PostMapping(value = "/student/add")
-    public ResponseEntity addStudent(@RequestBody StudentDto studentDto){
+    public ResponseEntity addStudent(@RequestBody StudentDto studentDto) {
         Student newStudent = new Student();
         newStudent.setName(studentDto.getName());
         newStudent.setSurname(studentDto.getSurname());
         newStudent.setGender(studentDto.getGender());
-        newStudent.getCourses().addAll(studentDto.getCourses());
         newStudent.setCourses(studentDto.getCourses());
         newStudent.setGrade(studentDto.getGrade());
         newStudent.setDebt(studentDto.getDebt());
@@ -81,13 +81,33 @@ public class AdminController {
     }
 
     @PostMapping(value = "/student/delete/{id}")
-    public ResponseEntity deleteStudent(@PathVariable Long id){
+    public ResponseEntity deleteStudent(@PathVariable Long id) {
         Optional<Student> student = studentRepository.findById(id);
         studentRepository.deleteById(student.get().getId());
 
         return new ResponseEntity<String>("Student with id " + student.get().getId()
-                                + " deleted", HttpStatus.ACCEPTED);
+                + " deleted", HttpStatus.ACCEPTED);
     }
+    @PostMapping(value = "/makeRequest")
+    public ResponseEntity makeRequest(@RequestParam RequestDto requestDto) {
+
+    }
+
+    // add specified course for specified student with their ID's.
+    @PostMapping(value = "/student/addCourseToStudent/{studentId}/{courseId}") // take ID's as path variables
+    public ResponseEntity addCourseToStudent(@PathVariable Long studentId, Long courseId) { // append ID's to the variables
+        Optional<Student> student = studentRepository.findById(studentId); // find the student with specified ID
+        Optional<Course> course = courseRepository.findById(courseId); // find the course with specified ID
+        student.get().getCourses().add(course.get()); // add the course to the student
+        // get() is used only because the type had to be Optional in repository search
+        // so to cover up the case if there are more than one student, we use list, i.e. Optional.
+
+        studentRepository.save(student.get()); // update the student in the database
+
+        return new ResponseEntity<>("Course " + course.get().getName() + "is added " +
+                                    "to the student " + student.get().getName() , HttpStatus.ACCEPTED);
+    }
+
 
     @PostMapping(value = "/course/add")
     public ResponseEntity addCourse(@RequestBody CourseDto courseDto) {
