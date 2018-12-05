@@ -1,10 +1,24 @@
 package com.codethecode.courseregistersystem.config;
 
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.*;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+@EnableSwagger2
+@Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+            }
+        };
+    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -19,4 +33,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/api/swagger-ui.html**").addResourceLocations("classpath:/META-INF/resources/swagger-ui.html");
         registry.addResourceHandler("/api/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
+
 }

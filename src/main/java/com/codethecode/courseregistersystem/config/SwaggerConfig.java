@@ -33,7 +33,7 @@ public class SwaggerConfig {
                 .select().apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                .pathMapping("/swagger")
+//                .pathMapping("/swagger")
                 .directModelSubstitute(LocalDate.class, String.class)
                 .genericModelSubstitutes(ResponseEntity.class);
     }

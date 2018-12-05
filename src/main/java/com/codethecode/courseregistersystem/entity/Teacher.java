@@ -54,6 +54,6 @@ public class Teacher{
     @Column(name="balance")
     private Integer balance;
 
-    @OneToOne(mappedBy = "student")
+    @OneToOne(mappedBy = "teacher")
     private Request request;
 }

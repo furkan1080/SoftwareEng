@@ -67,8 +67,7 @@ public class TeacherController {
         Optional<Teacher> requestedTeacher = teacherRepository.findById(requestDto.getTeacher().getId());
 
         request.get().setRequestStatus(RequestStatus.REVIEWED_BY_TEACHER);
-        requestRepository.save(request.get())
-        ;
+        requestRepository.save(request.get());
         return new ResponseEntity<>("RequestId "+ request.get().getId() +": Request made by student"
                 + requestingStudent.get().getName() + " " + requestingStudent.get().getSurname()
                 + " for course " + requestedCourse.get().getName()
@@ -80,6 +79,7 @@ public class TeacherController {
         Optional<Request> request = requestRepository.findById(requestId);
         Optional<Teacher> requestedTeacher = teacherRepository.findById(request.get().getTeacher().getId());
         Optional<Course> requestedCourse = courseRepository.findById(request.get().getCourse().getId());
+        String responseMessage = "";
 
         if(response.equals(1)){ // Say, it's ACCEPT of the request
 
@@ -91,14 +91,14 @@ public class TeacherController {
             teachersBalance += requestedCourse.get().getCost();
             requestedTeacher.get().setBalance(teachersBalance);
 
-            String responseMessage = "Request is accepted";
+            responseMessage = "Request is accepted";
         }
         else if(response.equals(0)){ // DENIAL of the request
             request.get().setRequestStatus(RequestStatus.DENIED);
-            String responseMessage = "Request is denied";
+            responseMessage = "Request is denied";
         }
 
         requestRepository.deleteById(requestId);
-        return new ResponseEntity<>("Request is denied.", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(responseMessage, HttpStatus.ACCEPTED);
     }
 }

@@ -14,11 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.codethecode.courseregistersystem.entity.Student;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping(value="/admin")
 public class AdminController {
 
@@ -30,6 +31,12 @@ public class AdminController {
 
     @Autowired
     CourseRepository courseRepository;
+
+    @GetMapping(value = "/checkAccess")
+    public ResponseEntity checkAccess(){
+        System.out.println("checkaccess is invoked");
+        return new ResponseEntity<>("Access is successful.", HttpStatus.OK);
+    }
 
     @PostMapping(value = "/teacher/add")
     public ResponseEntity addTeacher(@RequestBody TeacherDto teacherDto) {
