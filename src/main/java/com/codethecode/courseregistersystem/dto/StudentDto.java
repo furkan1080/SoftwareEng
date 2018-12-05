@@ -14,7 +14,7 @@ public class StudentDto {
     private String surname;
     private String gender;
     private Long debt;
-    private int days;
-    private ArrayList<String> courses;
+//    private int days;
+//    private ArrayList<String> courses;
     private int grade;
 }

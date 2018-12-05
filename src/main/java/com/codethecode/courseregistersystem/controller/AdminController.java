@@ -35,7 +35,7 @@ public class AdminController {
 
     @GetMapping(value = "/checkAccess")
     public ResponseEntity checkAccess() {
-        System.out.println("checkaccess is invoked");
+        System.out.println("checkAccess is invoked"); // print to the console
         return new ResponseEntity<>("Access is successful.", HttpStatus.OK);
     }
 

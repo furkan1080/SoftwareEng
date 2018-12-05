@@ -13,7 +13,7 @@ public class TeacherDto {
     private String name;
     private String surname;
     private String gender;
-    private ArrayList<String> courses;
+//    private ArrayList<String> courses;
     private String branch;
     private Integer cost;
     private Integer balance;
