@@ -7,7 +7,7 @@ public class CourseDto {
     private String name;
     private String branch;
     private String day;
-    private String teacherId;
-    private String studentId;
+//    private String teacherId;
+//    private String studentId;
     private Integer cost;
 }
