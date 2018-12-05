@@ -87,10 +87,6 @@ public class AdminController {
         return new ResponseEntity<String>("Student with id " + student.get().getId()
                 + " deleted", HttpStatus.ACCEPTED);
     }
-    @PostMapping(value = "/makeRequest")
-    public ResponseEntity makeRequest(@RequestParam RequestDto requestDto) {
-
-    }
 
     // add specified course for specified student with their ID's.
     @PostMapping(value = "/student/addCourseToStudent/{studentId}/{courseId}") // take ID's as path variables
