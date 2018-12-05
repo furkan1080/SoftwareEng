@@ -71,7 +71,6 @@ public class AdminController {
         newStudent.setName(studentDto.getName());
         newStudent.setSurname(studentDto.getSurname());
         newStudent.setGender(studentDto.getGender());
-        newStudent.setCourses(studentDto.getCourses());
         newStudent.setGrade(studentDto.getGrade());
         newStudent.setDebt(studentDto.getDebt());
 
