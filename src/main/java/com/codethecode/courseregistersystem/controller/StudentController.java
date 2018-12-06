@@ -64,6 +64,7 @@ public class StudentController {
         List<CourseDto> courseDtoList = new ArrayList<>();
         for(Course course: courseDaoList){
             CourseDto courseDto = new CourseDto();
+            courseDto.setId(course.getId());
             courseDto.setName(course.getName());
             courseDto.setBranch(course.getBranch());
             courseDto.setCost(course.getCost());
