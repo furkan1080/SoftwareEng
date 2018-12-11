@@ -18,29 +18,20 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-/*
-    @Column(name="course") // courses teacher teaches
-    private Course course;
-
-    @Column(name="teacher") // courses teacher teaches
-    private Teacher teacher;
-
-    @Column(name="student") // courses teacher teaches
-    private Student student;
-*/
+    
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL)
-    @JoinColumn(name = "studentid")
+    @JoinColumn(name = "student_id")
     private Student student;
 
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL)
-    @JoinColumn(name = "courseid")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL)
-    @JoinColumn(name = "teacherid")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
     private RequestStatus requestStatus;
