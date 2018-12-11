@@ -21,14 +21,14 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email
-    @Column(name="email", unique = true)
-    private String email;
+    //@Email
+    //@Column(name="email", unique = true)
+    //private String email;
 
-    @NotNull
-    @Size(max = 128)
-    @Column(name="password")
-    private String password;
+    //@NotNull
+    //@Size(max = 128)
+    //@Column(name="password")
+    //private String password;
 
 
     @Column(name="name")
