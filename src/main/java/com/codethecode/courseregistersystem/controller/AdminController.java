@@ -18,6 +18,7 @@ import com.codethecode.courseregistersystem.entity.Student;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -54,6 +55,24 @@ public class AdminController {
         return new ResponseEntity<String>("New teacher added", HttpStatus.ACCEPTED);
     }
 
+    @GetMapping(value = "/teacher/list")
+    public ResponseEntity getTeachers() {
+        Iterable<Teacher> teacherDaoList = teacherRepository.findAll();
+        List<TeacherDto> teacherDtoList = new ArrayList<>();
+        for(Teacher teacher : teacherDaoList){
+            TeacherDto teacherDto = new TeacherDto();
+            teacherDto.setBalance(teacher.getBalance());
+            teacherDto.setBranch(teacher.getBranch());
+            teacherDto.setCost(teacher.getCost());
+            teacherDto.setGender(teacher.getGender());
+            teacherDto.setName(teacher.getName());
+            teacherDto.setSurname(teacher.getSurname());
+            teacherDtoList.add(teacherDto);
+        }
+
+        return new ResponseEntity<>((ArrayList) teacherDtoList, HttpStatus.ACCEPTED);
+    }
+
 
     @DeleteMapping(value = "/teacher/delete/{id}")
     public ResponseEntity deleteTeacher(@PathVariable Long id) {
@@ -77,6 +96,23 @@ public class AdminController {
         studentRepository.save(newStudent);
 
         return new ResponseEntity<>("New Student added", HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping(value = "/student/list")
+    public ResponseEntity getStudents() {
+        Iterable<Student> studentDaoList = studentRepository.findAll();
+        List<StudentDto> studentDtoList = new ArrayList<>();
+        for(Student student : studentDaoList){
+            StudentDto studentDto = new StudentDto();
+            studentDto.setName(student.getName());
+            studentDto.setSurname(student.getSurname());
+            studentDto.setDebt(student.getDebt());
+            studentDto.setGrade(student.getGrade());
+            studentDto.setGender(student.getGender());
+            studentDtoList.add(studentDto);
+        }
+
+        return new ResponseEntity<>((ArrayList) studentDtoList, HttpStatus.ACCEPTED);
     }
 
     @PostMapping(value = "/student/delete/{id}")
