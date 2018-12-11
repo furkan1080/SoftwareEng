@@ -21,17 +21,17 @@ public class Request {
 
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "student_id")
     private Student student;
 
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
     private RequestStatus requestStatus;
