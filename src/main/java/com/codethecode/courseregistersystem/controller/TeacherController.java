@@ -61,44 +61,46 @@ public class TeacherController {
     public ResponseEntity checkRequests(@PathVariable Long id) {
         // might be written as list of requests, instead of one request
         Optional<Request> request = requestRepository.findByTeacherId(id);
-        RequestDto requestDto = new RequestDto();
-        Optional<Course> requestedCourse = courseRepository.findById(requestDto.getCourse().getId());
-        Optional<Student> requestingStudent = studentRepository.findById(requestDto.getStudent().getId());
-        Optional<Teacher> requestedTeacher = teacherRepository.findById(requestDto.getTeacher().getId());
+        //RequestDto requestDto = new RequestDto();
+        //Optional<Course> requestedCourse = courseRepository.findById(requestDto.getCourse().getId());
+        //Optional<Student> requestingStudent = studentRepository.findById(requestDto.getStudent().getId());
+        //Optional<Teacher> requestedTeacher = teacherRepository.findById(requestDto.getTeacher().getId());
 
         request.get().setRequestStatus(RequestStatus.REVIEWED_BY_TEACHER);
         requestRepository.save(request.get());
         return new ResponseEntity<>("RequestId "+ request.get().getId() +": Request made by student"
-                + requestingStudent.get().getName() + " " + requestingStudent.get().getSurname()
-                + " for course " + requestedCourse.get().getName()
-                + " for teacher " + requestedTeacher.get().getName(), HttpStatus.ACCEPTED);
+                + request.get().getStudent().getName() + " " + request.get().getStudent().getSurname()
+                + " for course " + request.get().getCourse().getName()
+                + " for teacher " + request.get().getTeacher().getName(), HttpStatus.ACCEPTED);
     }
 
     @PostMapping(value = "/responseRequest/id={requestId}&response={response}")
-    public ResponseEntity responseRequest(@PathVariable Long requestId, Long response) {
+    public ResponseEntity responseRequest(@PathVariable Long requestId, Long response, Long id) {
         Optional<Request> request = requestRepository.findById(requestId);
         Optional<Teacher> requestedTeacher = teacherRepository.findById(request.get().getTeacher().getId());
         Optional<Course> requestedCourse = courseRepository.findById(request.get().getCourse().getId());
         String responseMessage = "";
-
-        if(response.equals(1)){ // Say, it's ACCEPT of the request
+        responseMessage = "illegal response";
+        if(id!=request.get().getTeacher().getId())return new ResponseEntity<>(" "+responseMessage, HttpStatus.ACCEPTED);
+        if(response.equals(1L)){ // Say, it's ACCEPT of the request
 
             request.get().setRequestStatus(RequestStatus.ACCEPTED);
             ArrayList<String> busyDays = requestedTeacher.get().getBusyDays();
+            if(busyDays==null) busyDays = new ArrayList<String>();
             busyDays.add(requestedCourse.get().getDay());
-
+            requestedTeacher.get().setBusyDays(busyDays);
             int teachersBalance = Math.toIntExact(requestedTeacher.get().getBalance());
             teachersBalance += requestedCourse.get().getCost();
             requestedTeacher.get().setBalance(teachersBalance);
 
             responseMessage = "Request is accepted";
         }
-        else if(response.equals(0)){ // DENIAL of the request
+        else if(response.equals(0L)){ // DENIAL of the request
             request.get().setRequestStatus(RequestStatus.DENIED);
             responseMessage = "Request is denied";
         }
 
         requestRepository.deleteById(requestId);
-        return new ResponseEntity<>(responseMessage, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(" "+responseMessage, HttpStatus.ACCEPTED);
     }
 }
