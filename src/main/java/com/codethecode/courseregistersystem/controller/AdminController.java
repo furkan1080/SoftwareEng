@@ -61,6 +61,7 @@ public class AdminController {
         List<TeacherDto> teacherDtoList = new ArrayList<>();
         for(Teacher teacher : teacherDaoList){
             TeacherDto teacherDto = new TeacherDto();
+            teacherDto.setId(teacher.getId());
             teacherDto.setBalance(teacher.getBalance());
             teacherDto.setBranch(teacher.getBranch());
             teacherDto.setCost(teacher.getCost());
@@ -104,6 +105,7 @@ public class AdminController {
         List<StudentDto> studentDtoList = new ArrayList<>();
         for(Student student : studentDaoList){
             StudentDto studentDto = new StudentDto();
+            studentDto.setId(student.getId());
             studentDto.setName(student.getName());
             studentDto.setSurname(student.getSurname());
             studentDto.setDebt(student.getDebt());
