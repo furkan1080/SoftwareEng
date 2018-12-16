@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -54,6 +55,6 @@ public class Teacher{
     @Column(name="balance")
     private Integer balance;
 
-    @OneToOne(mappedBy = "teacher")
-    private Request request;
+    @OneToMany(mappedBy = "teacher")
+    private List<Request> request;
 }

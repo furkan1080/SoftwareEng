@@ -75,7 +75,7 @@ public class AdminController {
     }
 
 
-    @DeleteMapping(value = "/teacher/delete/{id}")
+    @PostMapping(value = "/teacher/delete/{id}")
     public ResponseEntity deleteTeacher(@PathVariable Long id) {
         Optional<Teacher> teacher = teacherRepository.findById(id);
         teacherRepository.deleteById(teacher.get().getId());

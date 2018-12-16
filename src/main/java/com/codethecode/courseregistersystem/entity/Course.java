@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,7 +30,7 @@ public class Course {
     @Column(name = "cost")
     private Integer cost;
 
-    @OneToOne(mappedBy = "course")
-    private Request request;
+    @OneToMany(mappedBy = "course")
+    private List<Request> request;
 }
 

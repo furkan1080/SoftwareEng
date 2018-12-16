@@ -19,17 +19,17 @@ public class Request {
     @Column(name = "id")
     private Long id;
     
-    @OneToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL)
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @OneToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL)
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;

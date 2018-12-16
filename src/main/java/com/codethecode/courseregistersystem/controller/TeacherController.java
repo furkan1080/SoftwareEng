@@ -68,6 +68,7 @@ public class TeacherController {
 
         request.get().setRequestStatus(RequestStatus.REVIEWED_BY_TEACHER);
         requestRepository.save(request.get());
+
         return new ResponseEntity<>("RequestId "+ request.get().getId() +": Request made by student"
                 + request.get().getStudent().getName() + " " + request.get().getStudent().getSurname()
                 + " for course " + request.get().getCourse().getName()

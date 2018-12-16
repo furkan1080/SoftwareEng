@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -52,6 +53,6 @@ public class Student {
     @Column(name="grade") // which year
     private int grade;
 
-    @OneToOne(mappedBy = "student")
-    private Request request;
+    @OneToMany(mappedBy = "student")
+    private List<Request> request;
 }
