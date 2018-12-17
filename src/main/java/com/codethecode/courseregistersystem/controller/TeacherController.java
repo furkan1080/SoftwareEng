@@ -84,7 +84,7 @@ public class TeacherController {
 	}
 
 	@PostMapping(value = "/responseRequest/id={requestId}&response={response}")
-	public ResponseEntity responseRequest(@PathVariable Long requestId, Long response, Long id) {
+	public ResponseEntity<String> responseRequest(@PathVariable Long requestId, Long response, Long id) {
 		Optional<Request> request = requestRepository.findById(requestId);
 		Optional<Teacher> requestedTeacher = teacherRepository.findById(request.get().getTeacher().getId());
 		Optional<Course> requestedCourse = courseRepository.findById(request.get().getCourse().getId());
@@ -108,9 +108,13 @@ public class TeacherController {
 		} else if (response.equals(0L)) { // DENIAL of the request
 			request.get().setRequestStatus(RequestStatus.DENIED);
 			responseMessage = "Request is denied";
+		} else {
+			responseMessage = "Incorrect input, response have to be 1 or 0.";
+			return new ResponseEntity<>(" " + responseMessage, HttpStatus.BAD_REQUEST);
 		}
+		requestRepository.save(request.get());
 
-		requestRepository.deleteById(requestId);
+//		requestRepository.deleteById(requestId);
 		return new ResponseEntity<>(" " + responseMessage, HttpStatus.ACCEPTED);
 	}
 }
