@@ -1,0 +1,6 @@
+{
+  "branch": "Computer Science",
+  "cost": 20,
+  "day": "Tuesday",
+  "name": "Software Engineering"
+}

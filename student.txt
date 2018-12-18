@@ -1,0 +1,7 @@
+{
+  "debt": 0,
+  "gender": "Male",
+  "grade": 2,
+  "name": "Cihan",
+  "surname": "Akarpınar"
+}
