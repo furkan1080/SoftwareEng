@@ -126,6 +126,7 @@ public class AdminController {
                 + " deleted", HttpStatus.ACCEPTED);
     }
 
+    /* Commented Out For Fix
     // add specified course for specified student with their ID's.
     @PostMapping(value = "/student/addCourseToStudent/{studentId}/{courseId}") // take ID's as path variables
     public ResponseEntity addCourseToStudent(@PathVariable Long studentId, Long courseId) { // append ID's to the variables
@@ -140,7 +141,7 @@ public class AdminController {
         return new ResponseEntity<>("Course " + course.get().getName() + "is added " +
                                     "to the student " + student.get().getName() , HttpStatus.ACCEPTED);
     }
-
+    */
 
     @PostMapping(value = "/course/add")
     public ResponseEntity addCourse(@RequestBody CourseDto courseDto) {
