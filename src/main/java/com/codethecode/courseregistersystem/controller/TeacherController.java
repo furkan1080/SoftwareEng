@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.codethecode.courseregistersystem.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -88,6 +89,7 @@ public class TeacherController {
 		Optional<Request> request = requestRepository.findById(requestId);
 		Optional<Teacher> requestedTeacher = teacherRepository.findById(request.get().getTeacher().getId());
 		Optional<Course> requestedCourse = courseRepository.findById(request.get().getCourse().getId());
+		Student requesterStudent = request.get().getStudent();
 		String responseMessage = "";
 		responseMessage = "illegal response";
 		if (id != request.get().getTeacher().getId())
@@ -95,11 +97,21 @@ public class TeacherController {
 		if (response.equals(1L)) { // Say, it's ACCEPT of the request
 
 			request.get().setRequestStatus(RequestStatus.ACCEPTED);
+
+
 			ArrayList<String> busyDays = requestedTeacher.get().getBusyDays();
+			ArrayList<String> studentBusyDays = requesterStudent.getBusyDays();
 			if (busyDays == null)
 				busyDays = new ArrayList<String>();
+			if (studentBusyDays == null)
+				studentBusyDays = new ArrayList<String>();
+
 			busyDays.add(requestedCourse.get().getDay());
+			studentBusyDays.add(requestedCourse.get().getDay());
+
 			requestedTeacher.get().setBusyDays(busyDays);
+			requesterStudent.setBusyDays(studentBusyDays);
+
 			int teachersBalance = Math.toIntExact(requestedTeacher.get().getBalance());
 			teachersBalance += requestedCourse.get().getCost();
 			requestedTeacher.get().setBalance(teachersBalance);
