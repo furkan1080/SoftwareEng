@@ -5,3 +5,19 @@
   "name": "Cihan",
   "surname": "Akarpınar"
 }
+
+{
+  "debt": 0,
+  "gender": "Female",
+  "grade": 4,
+  "name": "Semina",
+  "surname": "Aktuna"
+}
+
+{
+  "debt": 10,
+  "gender": "Male",
+  "grade": 3,
+  "name": "Mazlum",
+  "surname": "Altan"
+}
